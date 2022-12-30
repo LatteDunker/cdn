@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+
+<head>
+	<title>Drag and Drop File Upload</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="./main.css">
+</head>
+
+<body>
+	<h1> Upload multiple files </h1>
+	<input type="file" id="inputFile" multiple>
+	<button id="buttonUpload">Upload Files</button>
+
+	<script>
+		const inputFile = document.getElementById("inputFile");
+		const buttonUpload = document.getElementById("buttonUpload");
+		
+		buttonUpload.addEventListener("click", () => {
+			const formData = new FormData();
+			for (const file of inputFile.files) {
+				formData.append("myFiles[]", file);
+			}
+			console.log(formData);
+
+			fetch("http://localhost:3000/upload", {
+				method: "post",
+				body: formData
+			}).catch(console.error);
+		});
+
+
+	</script>
+</body> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--
+<form action="http://localhost:80/upload.js" method="post" enctype="multipart/form-data">
+    <input type="file" name="fileUpload"><br/>
+    <input type="submit"/>
+</form>
+	<div class="drop-zone">
+		<span class="drop-zone__prompt">Drop file here or click to upload</span>
+        <form id="dropForm" action="upload.js" method="post" enctype="multipart/form-data">
+		    <input type="file" id="fileInput"  name="myFile" class="drop-zone__input">
+        </form>
+    </div>
+
+	<script src="./main.js"></script>
+-->
